@@ -1,19 +1,17 @@
 services:
   hermes-agent:
     image: nousresearch/hermes-agent:latest
-    container_name: hermes-agent<!--citation:2--><!--citation:4-->
-    # 'gateway run' starts the API server and the background agent
+    container_name: hermes-agent
     command: gateway run 
     volumes:
       - ./hermes_data:/root/.hermes 
     environment:
-      - API_SERVER_ENABLED=true<!--citation:2--><!--citation:3-->
-      - API_SERVER_HOST=0.0.0.0<!--citation:2--><!--citation:4-->
-      # If you set a key here, you MUST set HERMES_API_TOKEN in the workspace below<!--citation:2-->
-      - API_SERVER_KEY=your_secret_password 
+      - API_SERVER_ENABLED=true
+      - API_SERVER_HOST=0.0.0.0
+      - API_SERVER_KEY=${HERMES_PASSWORD} 
     ports:
-      - "8642:8642" # Gateway/API
-      - "9119:9119" # Dashboard API (for Memory/Skills)
+      - "8642:8642"
+      - "9119:9119"
     restart: always
 
   hermes-workspace:
@@ -22,9 +20,9 @@ services:
     depends_on:
       - hermes-agent
     environment:
-      - HERMES_API_URL=http://hermes-agent:8642<!--citation:2-->
+      - HERMES_API_URL=http://hermes-agent:8642
       - HERMES_DASHBOARD_URL=http://hermes-agent:9119
-      - HERMES_API_TOKEN=your_secret_password
+      - HERMES_API_TOKEN=${HERMES_PASSWORD}
     ports:
       - "3001:3000"
     restart: always
