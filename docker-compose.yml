@@ -2,13 +2,13 @@ services:
   hermes-agent:
     image: nousresearch/hermes-agent:latest
     container_name: hermes-agent
-    command: gateway run 
+    command: gateway run
     volumes:
-      - ./hermes_data:/root/.hermes 
+      - ./hermes_data:/root/.hermes
     environment:
       - API_SERVER_ENABLED=true
       - API_SERVER_HOST=0.0.0.0
-      - API_SERVER_KEY=${HERMES_PASSWORD} 
+      - API_SERVER_KEY=${HERMES_PASSWORD}
       - HERMES_DASHBOARD=1
     ports:
       - "8642:8642"
@@ -24,7 +24,8 @@ services:
       - HERMES_API_URL=http://hermes-agent:8642
       - HERMES_DASHBOARD_URL=http://hermes-agent:9119
       - HERMES_API_TOKEN=${HERMES_PASSWORD}
-      - HERMES_PASSWORD=${HERMES_PASSWORD} 
+      - HERMES_PASSWORD=${HERMES_PASSWORD}
+      - COOKIE_SECURE=0
     ports:
       - "3001:3000"
     restart: always
