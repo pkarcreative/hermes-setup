@@ -29,5 +29,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ~/hermes-stack
+            echo "HERMES_PASSWORD=${{ secrets.HERMES_PASSWORD }}" > .env
             docker compose pull
             docker compose up -d
