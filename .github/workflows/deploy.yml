@@ -30,5 +30,6 @@ jobs:
           script: |
             cd ~/hermes-stack
             echo "HERMES_PASSWORD=${{ secrets.HERMES_PASSWORD }}" > .env
+            echo "API_SERVER_KEY=${{ secrets.HERMES_PASSWORD }}" >> .env
             docker compose pull
             docker compose up -d
